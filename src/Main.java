@@ -1,3 +1,5 @@
+import com.sun.source.doctree.SeeTree;
+import common.Person;
 import common.Task;
 import tasks.Task1;
 import tasks.Task2;
@@ -8,7 +10,13 @@ import tasks.Task6;
 import tasks.Task7;
 import tasks.Task8;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 Задачи находятся в пэкедже tasks

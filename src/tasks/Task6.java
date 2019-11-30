@@ -4,12 +4,12 @@ import common.Area;
 import common.Person;
 import common.Task;
 
+import javax.swing.text.html.parser.Entity;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 Имеются
@@ -19,11 +19,18 @@ import java.util.Set;
 На выходе хочется получить множество строк вида "Имя - регион". Если у персон регионов несколько, таких строк так же будет несколько
  */
 public class Task6 implements Task {
-
   private Set<String> getPersonDescriptions(Collection<Person> persons,
                                             Map<Integer, Set<Integer>> personAreaIds,
                                             Collection<Area> areas) {
-    return new HashSet<>();
+    Map <Integer, String> personMap= persons.stream()
+            .collect(Collectors.toMap(Person::getId, Person::getFirstName));
+    Map <Integer, String> areasMap = areas.stream()
+            .collect(Collectors.toMap(Area::getId, Area::getName));
+    return personAreaIds.keySet().stream()
+            .flatMap(personId ->
+              personAreaIds.get(personId).stream()
+                      .map(areaId -> personMap.get(personId)+" - "+areasMap.get(areaId)))
+            .collect(Collectors.toSet());
   }
 
   @Override
