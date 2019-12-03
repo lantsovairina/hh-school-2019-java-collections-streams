@@ -22,10 +22,6 @@ public class Task8 implements Task {
 
   //Не хотим выдывать апи нашу фальшивую персону, поэтому конвертим начиная со второй
   public List<String> getNames(List<Person> persons) {
-    /*
-    Изменять входные данные (например удалять из списка персону) - не очень хорошо :)
-    Поэтому с помощью стрима выдаем новый список.
-    */
     return persons.stream()
             .skip(1)
             .map(Person::getFirstName)
@@ -34,13 +30,11 @@ public class Task8 implements Task {
 
   //ну и различные имена тоже хочется
   public Set<String> getDifferentNames(List<Person> persons) {
-    // Здесь stream не нужен
     return new HashSet<>(getNames(persons));
   }
 
   //Для фронтов выдадим полное имя, а то сами не могут
   public String convertPersonToString(Person person) {
-    // Менее громоздко и лучше читаемо
     return Stream.of(person.getSecondName(), person.getFirstName(), person.getMiddleName())
             .filter(Objects::nonNull)
             .collect(Collectors.joining(" "));
@@ -55,36 +49,18 @@ public class Task8 implements Task {
   // есть ли совпадающие в двух коллекциях персоны?
   public boolean hasSamePersons(Collection<Person> persons1, Collection<Person> persons2) {
     return persons1.stream().anyMatch(persons2::contains);
-
-    /*
-    boolean has = false;
-    for (Person person1 : persons1) {
-      for (Person person2 : persons2) {
-        if (person1.equals(person2)) {
-          has = true;
-        }
-      }
-    }
-    return has;
-
-     */
   }
 
   //Выглядит вроде неплохо...
   public long countEven(Stream<Integer> numbers) {
     return numbers.filter(num -> num % 2 == 0).count();
-    /*
-    count = 0;
-    numbers.filter(num -> num % 2 == 0).forEach(num -> count++);
-    return count;
-     */
   }
 
   @Override
   public boolean check() {
     System.out.println("Слабо дойти до сюда и исправить Fail этой таски?");
     boolean codeSmellsGood = false;
-    boolean reviewerDrunk = false;
+    boolean reviewerDrunk = true;
     return codeSmellsGood || reviewerDrunk;
   }
 }

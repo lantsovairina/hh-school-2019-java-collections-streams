@@ -4,12 +4,12 @@ import common.Area;
 import common.Person;
 import common.Task;
 
-import javax.swing.text.html.parser.Entity;
 import java.time.Instant;
-import java.util.*;
-import java.util.function.Function;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /*
 Имеются
@@ -22,14 +22,14 @@ public class Task6 implements Task {
   private Set<String> getPersonDescriptions(Collection<Person> persons,
                                             Map<Integer, Set<Integer>> personAreaIds,
                                             Collection<Area> areas) {
-    Map <Integer, String> personMap= persons.stream()
+    Map <Integer, String> personNames= persons.stream()
             .collect(Collectors.toMap(Person::getId, Person::getFirstName));
-    Map <Integer, String> areasMap = areas.stream()
+    Map <Integer, String> areasNames = areas.stream()
             .collect(Collectors.toMap(Area::getId, Area::getName));
     return personAreaIds.keySet().stream()
             .flatMap(personId ->
               personAreaIds.get(personId).stream()
-                      .map(areaId -> personMap.get(personId)+" - "+areasMap.get(areaId)))
+                      .map(areaId -> String.format("%s - %s",personNames.get(personId),areasNames.get(areaId))))
             .collect(Collectors.toSet());
   }
 
