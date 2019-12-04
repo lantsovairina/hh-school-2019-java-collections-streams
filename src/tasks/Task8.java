@@ -48,7 +48,8 @@ public class Task8 implements Task {
 
   // есть ли совпадающие в двух коллекциях персоны?
   public boolean hasSamePersons(Collection<Person> persons1, Collection<Person> persons2) {
-    return persons1.stream().anyMatch(persons2::contains);
+    Set <Person> personsSet = new HashSet<>(persons2);
+    return persons1.stream().anyMatch(personsSet::contains);
   }
 
   //Выглядит вроде неплохо...
